@@ -13,13 +13,12 @@ function MyLinks() {
 
 	var session = sessionStorage.getItem("key");
 	//alert(Session.getrole()==0)
-	if (Session.getrole() == false && session == 'null') {
+	if (Session.getrole() == false && session == 'null' || session == null) {
 
 		return (
 			<>
-
+				
 				<li class="menu-item ">  <Link to="/"> Home</Link></li>
-				<li class="menu-item"><Link to="/Admin">Movies</Link></li>
 				<li class="menu-item"><Link to="/Login">Login</Link></li>
 				<li class="menu-item"><Link to="/SignUp">Sign Up</Link></li>
 
@@ -29,8 +28,8 @@ function MyLinks() {
 	else if (Session.getrole() == 0 && session != 'null') {
 		return (
 			<>
+			
 				<li class="menu-item ">  <Link to="/"> Home</Link></li>
-				<li class="menu-item"><Link to="/Movies">Movies</Link></li>
 				<li class="menu-item"><Link to="/Watchlist">Watch List</Link></li>
 				<li class="menu-item">
 					<input type="button"
@@ -48,10 +47,30 @@ function MyLinks() {
 	else if (Session.getrole() == 1 && session != 'null') {
 		return (
 			<>
+				<li class="menu-item "> <span>  |</span>  Welcome Admin</li>
 				<li class="menu-item ">  <Link to="/"> Home</Link></li>
 				<li class="menu-item"><Link to="/AddMovie">Add Movies</Link></li>
-				<li class="menu-item"><Link to="/Reviews">Reviews</Link></li>
+				<li class="menu-item"><Link to="/AdminReview">Reviews</Link></li>
 				<li class="menu-item"><Link to="/Users">Users</Link></li>
+				<li class="menu-item">
+					<input type="button"
+						class="text-centre mybtn"
+						name="submit"
+						value="Logout"
+						onClick={() => logout()} />
+
+				</li>
+
+
+
+			</>)
+	}
+	else if (Session.getrole() == 2 && session != 'null') {
+		return (
+			<>
+				<li class="menu-item "> <span>  |</span> Welcome Critic</li>
+				<li class="menu-item ">  <Link to="/"> Home</Link></li>
+				<li class="menu-item"><Link to="/Watchlist">Watch List</Link></li>
 				<li class="menu-item">
 					<input type="button"
 						class="text-centre mybtn"
@@ -78,7 +97,7 @@ function Header() {
 						<a id="branding">
 							<img src={logo} alt="" class="logo" />
 							<div class="logo-copy">
-								<h1 class="site-title">Review-My-Show.com</h1 >
+								<h1 class="site-title">Movies-Review-App</h1 >
 								<small class="site-description">Find the accurate review</small>
 							</div>
 						</a>

@@ -12,7 +12,7 @@
   
  .mybtn{
     border: none;
-    background: #ffaa3c;
+    background: blue;
     margin:3px;
     border-radius: 3px;
     color: white;
@@ -23,7 +23,7 @@
     border: none;
     margin:3px;
     border-radius: 0px;
-    color: #ffaa3c;
+    color: blue;
     margin-top:5px;
     background-color: white;
  }
@@ -44,7 +44,7 @@
  }
  .mybtn3{
   border: none;
-  background: #ffaa3c;
+  background: #ffb73c;
   margin:3px;
   border-radius: 3px;
   color: white;
@@ -83,7 +83,7 @@
   }
   
   .notification:hover {
-    background:  #ffe9cc;
+    background:  #e4dede;
   }
   
   .notification .badge {
@@ -92,7 +92,7 @@
     right: 10px;
     padding: 5px 10px;
     border-radius: 50%;
-    background-color:  #ffaa3c;
+    background-color:  #0022b9;
     color: white;
   }
   .badge:hover{
@@ -113,7 +113,7 @@
     margin-left:20px;
   }
   .checked {
-    color: orange;
+    color: black;
   }
   .rating{
     margin-top:-15px;
@@ -141,4 +141,12 @@
 
       width:auto;
       height:500px;
+    }
+    .review-box{
+      border-radius: 3px;
+      border-color: #ffaa3c;
+    }
+    .test-img{
+      width:auto;
+      height:40px;
     }

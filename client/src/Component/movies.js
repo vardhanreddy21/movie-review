@@ -8,6 +8,7 @@ import Session from '../session/session';
 import { useState, useEffect } from 'react'
 import Axios from 'axios';
 import Rating from './Rating'
+import './mystyle.css'
 Axios.defaults.withCredentials = true;
 
 function Form() {
@@ -36,10 +37,17 @@ function Form() {
 //movies
 export default function Movies() {
   const [data, setData] = useState([]);
+  const [rate,setRate] = useState([]);
+  //critic review count
+  var critic =0,strMessage="";
+  //session
+  var session = sessionStorage.getItem("key");
   const location = useLocation();
   Session.setmid(location.state.id);
+
   var x=0,count=0;
   const getData = () => {
+  
     fetch('http://localhost:3001/Myrating'
         , {
             headers: {
@@ -60,7 +68,27 @@ useEffect(() => {
     getData()
 }, [])
 
-{data.map((item2) => {if(location.state.id==item2.movie_id){x= x+item2.rating;count++;}} )}
+// criric rating 
+
+{data.map((item) => {if(item.user_id==session){critic++}} )}
+if(critic >=3){
+  strMessage="Critic Review"}
+  else{
+    strMessage="Give a Review"
+  }
+//calculate rating
+{data.map((item2) => {if(location.state.id==item2.movie_id){
+  if(item2.user_role==2){
+    
+    x=x+(item2.rating*2)//2x
+    count+=2;
+  }else{
+    x= x+item2.rating;
+    count++;
+  }
+}} )}
+
+//code to get the review details 
   return (
     <>
       <Header />
@@ -85,18 +113,18 @@ useEffect(() => {
 
                   </div>
                   <ul class="movie-meta">
-                    <li><strong>Rating: {x/count} out of 10 </strong>
+                    <li><strMessageong>Rating: {x/count} out of 10 </strMessageong>
 
                    
                     </li>
-                    <li><strong>Release:</strong> {location.state.year}</li>
-                    <li><strong>Langauge:</strong> {location.state.language}</li>
-                    <li><strong>Category:</strong> {location.state.genre}</li>
+                    <li><strMessageong>Release:</strMessageong> {location.state.year}</li>
+                    <li><strMessageong>Langauge:</strMessageong> {location.state.language}</li>
+                    <li><strMessageong>Category:</strMessageong> {location.state.genre}</li>
                   </ul>
 
                   <ul class="starring">
                 
-                    <h3>Give a Review</h3>
+                    <h3>{strMessage}</h3>
 
                     <Form />
                     
@@ -105,16 +133,29 @@ useEffect(() => {
 
               </div>
               <div class="row">  
-               { data.map((item) => 
-                
+              <h2>User Reviews</h2>
+              <hr></hr>
+              {//review by user for movie
+              }
+               { data.map((item) => {if(item.movie_id==location.state.id){return(
               <div class="col-lg-3">
-                     <div class="card ">
-                            <h6>{item.user_id}</h6>    
-                            <h6>{item.rating}</h6>
-                            <h6>{item.value}</h6>               
-                    </div>
-              </div>
-)}
+                <div class="row">
+                     <div class=" review-box ">
+                             <h4>{item.user_id} Says</h4>
+                        <div class="col-lg-3">
+                            <img class="test-img"src="https://www.nicepng.com/png/detail/128-1280406_view-user-icon-png-user-circle-icon-png.png" />
+                        </div>
+                        <div class="col-lg-9">
+                            <span>{item.rating}/10</ span> 
+                            <p>{item.value}</p>
+                       </div>
+                      </div>  
+                    </div>           
+                    
+              </div> 
+               )}
+               }
+              )}
               </div>
             </div>
           </div>
